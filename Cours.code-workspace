@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "../../../Web fundamentals/Cours"
+		},
+		{
+			"path": "../../../Web fundamentals/Devoir"
+		},
+		{
+			"path": "../../../Scripting"
+		},
+		{
+			"path": "../../Project Lab/SS"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Cours",
+		"liveServer.settings.useWebExt": false
+	}
+}
