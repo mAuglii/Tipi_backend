@@ -6,30 +6,30 @@ const db = require('../db'); // Our SQLite database connection
 const router = express.Router();
 const SECRET = process.env.JWT_SECRET; // Jsn token stored in the .env
 
+
 // -----------------------------
 // POST /register
-// Registers a new user
+// Registers a new user (always as owner)
 // -----------------------------
 router.post('/register', async (req, res) => {
-  const { name, email, password, isOwner } = req.body;
+  const { name, email, password } = req.body;
 
   try {
-    // Hash the password before saving to the database
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Prepare and run SQL INSERT statement
+    // Force isOwner to always be true (1)
     const stmt = db.prepare(`
       INSERT INTO users (name, email, password, isOwner)
-      VALUES (?, ?, ?, ?)
+      VALUES (?, ?, ?, 1)
     `);
-    stmt.run(name, email, hashedPassword, isOwner ? 1 : 0);
+    stmt.run(name, email, hashedPassword);
 
     res.status(201).json({ message: 'User registered' });
   } catch (err) {
-    // If email already exists or any other DB error
     res.status(400).json({ error: 'Email already exists' });
   }
 });
+
 
 // -----------------------------
 // POST /login
